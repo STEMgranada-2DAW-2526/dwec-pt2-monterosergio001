@@ -12,6 +12,14 @@ const INITIAL_STATE = {
   damagePerShot: 1,
   autoShotsPerSecond: 1,
   upgrades: [],
+
+  canionPrice: 15,
+  lanzamisilesPrice: 30,
+  arbolPrice: 50,
+
+  canionDamagePerShot: 2,
+  lanzamisilesDamagePerShot: 5,
+  arbolDamagePerShot: 10,
 }
 
 function App() {
@@ -21,22 +29,20 @@ function App() {
     let outputState = state;
 
     if (action.type == 'CLICK_SHOOT') {
-      outputState = { ...state, danioOleada: state.danioOleada + state.danioPorClick}
+      outputState = { ...state, damageDealt: state.damageDealt + state.damagePerShot }
     }
-    else if (action.type == 'BUY_MULTIPLIER' && state.cookies >= state.multiplierPrice) {
+    else if (action.type == 'BUY_MULTIPLIER') {
       outputState =
       {
         ...state,
-        clickMultiplier: state.clickMultiplier + 1,
-        cookies: state.cookies - state.multiplierPrice,
-        multiplierPrice: Math.round(state.multiplierPrice * state.multiplierPriceIncrement)
+        
       }
     }
     else if (action.type == 'AUTO_SHOOT') {
       outputState =
       {
         ...state,
-        danioOleada: state.danioOleada + ,
+        danioOleada: state.danioOleada + state.autoShotsPerSecond * state.damagePerShot
       }
     }
 
