@@ -28,7 +28,43 @@ const INITIAL_STATE = {
 
 function App() {
 
+  function canionReducer(state, action) {
 
+    let outputState = state;
+
+    if (action.type == 'CLICK_SHOOT') {
+      outputState = { ...state, danioOleada: state.danioOleada + state.danioPorClick}
+    }
+    else if (action.type == 'BUY_MULTIPLIER' && state.cookies >= state.multiplierPrice) {
+      outputState =
+      {
+        ...state,
+        clickMultiplier: state.clickMultiplier + 1,
+        cookies: state.cookies - state.multiplierPrice,
+        multiplierPrice: Math.round(state.multiplierPrice * state.multiplierPriceIncrement)
+      }
+    }
+    else if (action.type == 'AUTO_SHOOT') {
+      outputState =
+      {
+        ...state,
+        danioOleada: state.danioOleada + 1,
+      }
+    }
+
+    return outputState;
+
+  }
+
+  const [state, dispatch] = useReducer(canionReducer, INITIAL_STATE)
+
+  useEffect(() => {
+    let timer = setInterval(() => {
+      dispatch({ type: 'AUTO_SHOOT' })
+    }, 1000);
+
+    return () => clearInterval(timer)
+  }, []);
 
   return (
     <>
@@ -38,7 +74,7 @@ function App() {
       <div className='container'>
         <div className='row justify-content-center'>
           <h1 className='col-12'></h1>
-          <button className='col-5' onClick={() => dispatch({ type: 'CLICK_DISPARAR' })}>
+          <button className='col-5' onClick={() => dispatch({ type: 'CLICK_SHOOT' })}>
             <img className='img-fluid' src={torre} />
           </button>
         </div>
