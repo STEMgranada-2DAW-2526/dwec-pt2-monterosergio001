@@ -24,7 +24,7 @@ const INITIAL_STATE = {
   arbolDamagePerShot: 9,
 
   oleadas: 1,
-  multiplicador: 2,
+  multiplicador: 0,
 }
 
 function App() {
@@ -79,11 +79,21 @@ function App() {
         }
       }
     }
+    else if (action.type == 'BUY_MULTIPLIER' && state.caramels >= state.multiplicadorPrice) {
+        outputState =
+        {
+          ...state,
+          caramels: state.caramels - state.multiplicadorPrice,
+          damagePerShot: state.damagePerShot + state.arbolDamagePerShot,
+          multiplicador: state.multiplicador + 1,
+          multiplicadorPrice: Math.floor(state.multiplicadorPrice * 1.2),
+        }
+    }
     else if (action.type == 'AUTO_SHOOT') {
       outputState =
       {
         ...state,
-        damageDealt: state.damageDealt + state.autoShotsPerSecond * state.damagePerShot,
+        damageDealt: state.multiplicador + state.damageDealt + (state.autoShotsPerSecond * state.damagePerShot),
       }
       if (outputState.damageDealt >= outputState.waveGoal) {
         outputState =
@@ -158,7 +168,7 @@ function App() {
       </div>
       <div className='container'>
         <h3 className='col-12 mt-4'>Multiplicador</h3>
-        <button className='col-md-2 col-12' onClick={() => dispatch({ type: 'BUY_CANION' })}>
+        <button className='col-md-2 col-12' onClick={() => dispatch({ type: 'BUY_MULTIPLIER' })}>
             <img className='img-fluid' src={multiplicador} />
             <p>x{state.multiplicador}</p>
             <p>({state.multiplicadorPrice})</p>
