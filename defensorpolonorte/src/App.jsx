@@ -7,10 +7,23 @@ import arbol from './assets/arbol_laser.png'
 
 const INITIAL_STATE = {
   danioOleada: 0,
-  danioTotalOleada: 250,
+  danioTotalOleada: 100,
+  caramelos: 20,
+  numOleada: 1,
 
-  caramelos: 0,
+  danioPorClick: 1,
 
+  canionTurron: 0,
+  lanzamisiles: 0,
+  arbolLaser: 0,
+
+  canionTurronPrecio: 15,
+  lanzamisilesPrecio: 30,
+  arbolLaserPrecio: 50,
+
+  multiplicadorDanioTotalOleada: 0.1,
+
+  upgrades: [],
 }
 
 function App() {
