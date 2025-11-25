@@ -39,6 +39,7 @@ function App() {
           damageDealt: 0,
           waveGoal: outputState.waveGoal + Math.floor(outputState.waveGoal * 0.1),
           caramels: outputState.caramels + 10,
+          oleadas: outputState.oleadas + 1,
         }
       }
     }
@@ -84,11 +85,11 @@ function App() {
       if (outputState.damageDealt >= outputState.waveGoal) {
         outputState =
         {
-          ...outputState,
+          ...state,
           damageDealt: 0,
-          waveGoal: outputState.waveGoal + Math.floor(outputState.waveGoal * 0.1),
-          caramels: outputState.caramels + 10,
-          oleadas: outputState.oleadas + 1,
+          waveGoal: state.waveGoal + Math.floor(outputState.waveGoal * 0.1),
+          caramels: state.caramels + 10,
+          oleadas: state.oleadas + 1,
         }
       }
     }
