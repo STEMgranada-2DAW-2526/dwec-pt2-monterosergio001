@@ -31,11 +31,22 @@ function App() {
     if (action.type == 'CLICK_SHOOT') {
       outputState = { ...state, damageDealt: state.damageDealt + state.damagePerShot }
     }
-    else if (action.type == 'BUY_MULTIPLIER') {
+    else if (action.type == 'BUY_CANION' && state.caramels >= state.canionPrice) {
       outputState =
       {
         ...state,
-        
+        caramels: state.caramels - state.canionPrice,
+        damagePerShot: state.damagePerShot + state.canionDamagePerShot,
+        upgrades: [...state.upgrades, 'canion'],
+      }
+    }
+    else if (action.type == 'BUY_LANZAMISILES' && state.caramels >= state.lanzamisilesPrice) {
+      outputState =
+      {
+        ...state,
+        caramels: state.caramels - state.lanzamisilesPrice,
+        damagePerShot: state.damagePerShot + state.lanzamisilesDamagePerShot,
+        upgrades: [...state.upgrades, 'lanzamisiles'],
       }
     }
     else if (action.type == 'AUTO_SHOOT') {
@@ -67,12 +78,27 @@ function App() {
       </div>
       <div className='container'>
         <div className='row justify-content-center'>
+          <h3 className='col-12'>Daño de oleada</h3>
+          <p>{state.damageDealt} / {state.waveGoal}</p>
+        </div>
+        <div className='row justify-content-center'>
+          <h3 className='col-12'>Caramelos</h3>
+          <p>{state.caramels}</p>
+        </div>
+        <div className='row justify-content-center'>
+          <h3 className='col-12'>Oleada</h3>
+          <p>{Math.floor(state.damageDealt / state.waveGoal) + 1}</p>
+        </div>
+      </div>
+      <div className='container'>
+        <div className='row justify-content-center'>
           <h1 className='col-12'></h1>
           <button className='col-5' onClick={() => dispatch({ type: 'CLICK_SHOOT' })}>
             <img className='img-fluid' src={torre} />
           </button>
         </div>
         <div className='row justify-content-center'>
+          <h3 className='col-12 mt-4'>Mejoras de daño</h3>
           <button className='col-md-2 col-12' onClick={() => dispatch({ type: 'BUY_CANION' })}>
             <img className='img-fluid' src={canion} />
           </button>
