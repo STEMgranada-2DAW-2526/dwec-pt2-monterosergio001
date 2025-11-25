@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   damageDealt: 0,
   waveGoal: 100,
   caramels: 20,
-  damagePerShot: 1,
+  damagePerShot: 0,
   autoShotsPerSecond: 1,
   upgrades: [],
 
@@ -47,6 +47,15 @@ function App() {
         caramels: state.caramels - state.lanzamisilesPrice,
         damagePerShot: state.damagePerShot + state.lanzamisilesDamagePerShot,
         upgrades: [...state.upgrades, 'lanzamisiles'],
+      }
+    }
+    else if (action.type == 'BUY_ARBOL' && state.caramels >= state.arbolPrice) {
+      outputState =
+      {
+        ...state,
+        caramels: state.caramels - state.arbolPrice,
+        damagePerShot: state.damagePerShot + state.arbolDamagePerShot,
+        upgrades: [...state.upgrades, 'arbol'],
       }
     }
     else if (action.type == 'AUTO_SHOOT') {
