@@ -4,6 +4,7 @@ import torre from './assets/torre.png'
 import canion from './assets/canion_turron.png'
 import lanzamisiles from './assets/reno_lanza_cohetes.png'
 import arbol from './assets/arbol_laser.png'
+import multiplicador from './assets/multiplicador.png'
 
 const INITIAL_STATE = {
   damageDealt: 0,
@@ -16,12 +17,14 @@ const INITIAL_STATE = {
   canionPrice: 15,
   lanzamisilesPrice: 30,
   arbolPrice: 50,
+  multiplicadorPrice: 10,
 
   canionDamagePerShot: 1,
   lanzamisilesDamagePerShot: 4,
   arbolDamagePerShot: 9,
 
   oleadas: 1,
+  multiplicador: 2,
 }
 
 function App() {
@@ -152,6 +155,14 @@ function App() {
             <p>({state.arbolPrice})</p>
           </button>
         </div>
+      </div>
+      <div className='container'>
+        <h3 className='col-12 mt-4'>Multiplicador</h3>
+        <button className='col-md-2 col-12' onClick={() => dispatch({ type: 'BUY_CANION' })}>
+            <img className='img-fluid' src={multiplicador} />
+            <p>x{state.multiplicador}</p>
+            <p>({state.multiplicadorPrice})</p>
+        </button>
       </div>
     </>
   )
