@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   damageDealt: 0,
   waveGoal: 100,
   caramels: 20,
-  damagePerShot: 0,
+  damagePerShot: 1,
   autoShotsPerSecond: 1,
   upgrades: [],
 
@@ -17,9 +17,9 @@ const INITIAL_STATE = {
   lanzamisilesPrice: 30,
   arbolPrice: 50,
 
-  canionDamagePerShot: 2,
-  lanzamisilesDamagePerShot: 5,
-  arbolDamagePerShot: 10,
+  canionDamagePerShot: 1,
+  lanzamisilesDamagePerShot: 4,
+  arbolDamagePerShot: 9,
 }
 
 function App() {
@@ -30,6 +30,15 @@ function App() {
 
     if (action.type == 'CLICK_SHOOT') {
       outputState = { ...state, damageDealt: state.damageDealt + state.damagePerShot }
+      if (outputState.damageDealt >= outputState.waveGoal) {
+        outputState =
+        {
+          ...outputState,
+          damageDealt: 0,
+          waveGoal: outputState.waveGoal + Math.floor(outputState.waveGoal * 0.1),
+          caramels: outputState.caramels + 10,
+        }
+      }
     }
     else if (action.type == 'BUY_CANION' && state.caramels >= state.canionPrice) {
       outputState =
