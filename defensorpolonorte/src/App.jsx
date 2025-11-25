@@ -6,23 +6,11 @@ import lanzamisiles from './assets/reno_lanza_cohetes.png'
 import arbol from './assets/arbol_laser.png'
 
 const INITIAL_STATE = {
-  danioOleada: 0,
-  danioTotalOleada: 100,
-  caramelos: 20,
-  numOleada: 1,
-
-  danioPorClick: 1,
-
-  canionTurron: 0,
-  lanzamisiles: 0,
-  arbolLaser: 0,
-
-  canionTurronPrecio: 15,
-  lanzamisilesPrecio: 30,
-  arbolLaserPrecio: 50,
-
-  multiplicadorDanioTotalOleada: 0.1,
-
+  damageDealt: 0,
+  waveGoal: 100,
+  caramels: 20,
+  damagePerShot: 1,
+  autoShotsPerSecond: 1,
   upgrades: [],
 }
 
@@ -48,7 +36,7 @@ function App() {
       outputState =
       {
         ...state,
-        danioOleada: state.danioOleada + 1,
+        danioOleada: state.danioOleada + ,
       }
     }
 
