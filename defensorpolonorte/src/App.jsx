@@ -41,37 +41,52 @@ function App() {
       }
     }
     else if (action.type == 'BUY_CANION' && state.caramels >= state.canionPrice) {
-      outputState =
-      {
-        ...state,
-        caramels: state.caramels - state.canionPrice,
-        damagePerShot: state.damagePerShot + state.canionDamagePerShot,
-        upgrades: [...state.upgrades, 'canion'],
+      if (!state.upgrades.includes('canion') && !state.upgrades.includes('lanzamisiles') && !state.upgrades.includes('arbol')) {
+        outputState =
+        {
+          ...state,
+          caramels: state.caramels - state.canionPrice,
+          damagePerShot: state.damagePerShot + state.canionDamagePerShot,
+          upgrades: [...state.upgrades, 'canion'],
+        }
       }
     }
     else if (action.type == 'BUY_LANZAMISILES' && state.caramels >= state.lanzamisilesPrice) {
-      outputState =
-      {
-        ...state,
-        caramels: state.caramels - state.lanzamisilesPrice,
-        damagePerShot: state.damagePerShot + state.lanzamisilesDamagePerShot,
-        upgrades: [...state.upgrades, 'lanzamisiles'],
+      if (!state.upgrades.includes('lanzamisiles') && state.upgrades.includes('canion')) {
+        outputState =
+        {
+          ...state,
+          caramels: state.caramels - state.lanzamisilesPrice,
+          damagePerShot: state.damagePerShot + state.lanzamisilesDamagePerShot,
+          upgrades: [...state.upgrades, 'lanzamisiles'],
+        }
       }
     }
     else if (action.type == 'BUY_ARBOL' && state.caramels >= state.arbolPrice) {
-      outputState =
-      {
-        ...state,
-        caramels: state.caramels - state.arbolPrice,
-        damagePerShot: state.damagePerShot + state.arbolDamagePerShot,
-        upgrades: [...state.upgrades, 'arbol'],
+      if (!state.upgrades.includes('arbol') && state.upgrades.includes('lanzamisiles')) {
+        outputState =
+        {
+          ...state,
+          caramels: state.caramels - state.arbolPrice,
+          damagePerShot: state.damagePerShot + state.arbolDamagePerShot,
+          upgrades: [...state.upgrades, 'arbol'],
+        }
       }
     }
     else if (action.type == 'AUTO_SHOOT') {
       outputState =
       {
         ...state,
-        danioOleada: state.danioOleada + state.autoShotsPerSecond * state.damagePerShot
+        damageDealt: state.damageDealt + state.autoShotsPerSecond * state.damagePerShot,
+      }
+      if (outputState.damageDealt >= outputState.waveGoal) {
+        outputState =
+        {
+          ...outputState,
+          damageDealt: 0,
+          waveGoal: outputState.waveGoal + Math.floor(outputState.waveGoal * 0.1),
+          caramels: outputState.caramels + 10,
+        }
       }
     }
 
@@ -119,12 +134,15 @@ function App() {
           <h3 className='col-12 mt-4'>Mejoras de daño</h3>
           <button className='col-md-2 col-12' onClick={() => dispatch({ type: 'BUY_CANION' })}>
             <img className='img-fluid' src={canion} />
+            <p>+2</p>
           </button>
           <button className='col-md-2 col-12' onClick={() => dispatch({ type: 'BUY_LANZAMISILES' })}>
             <img className='img-fluid' src={lanzamisiles} />
+            <p>+5</p>
           </button>
           <button className='col-md-2 col-12' onClick={() => dispatch({ type: 'BUY_ARBOL' })}>
             <img className='img-fluid' src={arbol} />
+            <p>+10</p>
           </button>
         </div>
       </div>
