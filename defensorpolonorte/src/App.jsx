@@ -20,6 +20,8 @@ const INITIAL_STATE = {
   canionDamagePerShot: 1,
   lanzamisilesDamagePerShot: 4,
   arbolDamagePerShot: 9,
+
+  oleadas: 1,
 }
 
 function App() {
@@ -86,6 +88,7 @@ function App() {
           damageDealt: 0,
           waveGoal: outputState.waveGoal + Math.floor(outputState.waveGoal * 0.1),
           caramels: outputState.caramels + 10,
+          oleadas: outputState.oleadas + 1,
         }
       }
     }
@@ -120,7 +123,7 @@ function App() {
         </div>
         <div className='row justify-content-center'>
           <h3 className='col-12'>Oleada</h3>
-          <p>{Math.floor(state.damageDealt / state.waveGoal) + 1}</p>
+          <p>{state.oleadas}</p>
         </div>
       </div>
       <div className='container'>
@@ -135,14 +138,17 @@ function App() {
           <button className='col-md-2 col-12' onClick={() => dispatch({ type: 'BUY_CANION' })}>
             <img className='img-fluid' src={canion} />
             <p>+2</p>
+            <p>({state.canionPrice})</p>
           </button>
           <button className='col-md-2 col-12' onClick={() => dispatch({ type: 'BUY_LANZAMISILES' })}>
             <img className='img-fluid' src={lanzamisiles} />
             <p>+5</p>
+            <p>({state.lanzamisilesPrice})</p>
           </button>
           <button className='col-md-2 col-12' onClick={() => dispatch({ type: 'BUY_ARBOL' })}>
             <img className='img-fluid' src={arbol} />
             <p>+10</p>
+            <p>({state.arbolPrice})</p>
           </button>
         </div>
       </div>
